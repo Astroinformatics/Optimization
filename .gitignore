@@ -1,0 +1,7 @@
+.git
+*.plutostate
+*.html
+*/Manifest.toml
+tools/*
+
+.ipynb_checkpoints
