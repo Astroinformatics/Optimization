@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.5
+# v0.19.4
 
 using Markdown
 using InteractiveUtils
@@ -143,25 +143,25 @@ Let's say our initial random point is ``x_1 = 8`` and ``\eta = 0.1``.
 Then
 
 ``x_2 = x_1 - \eta f_x(x_1) = ``
- $(@bind response_x2 NumberField(-10:10,default=0))
+ $(@bind response_x2 NumberField(-10:0.1:10,default=0))
 """
 
 # ╔═╡ 6777d6fe-2235-4832-9455-a12a6ef1f947
-# TODO Pretty up
 if response_x2 == 0
-	md""" Enter response above."""
-elseif  response_x2 ≈ 3.1
+	md"""**Question:** Enter your response in the box above.   This text will update based on your response."""
+elseif  isapprox(response_x2, 3.1, atol=1e-2)
 	#=```math
 	x_2 = x_1 - \eta f_x(x_1) = 8 - 0.1(49) = 3.1
 	```=#
-	md""" Correct.  
+	md"""Correct.  
+
 	The next iteration would be
 	```math
 	x_3 = x_2 - \eta f_x(x_2) = 3.1 - 0.1(19.6) = 1.14
 	```
 	"""
 else
-	md""" Check your work above."""
+	md"""Hmm, that's not quite right.  Please check your work above."""
 end
 
 # ╔═╡ 90ec3591-d797-43af-a990-e8001a6d8e09
@@ -669,30 +669,26 @@ Alternatively, we can write data into an existing array with two arrays `a .= b`
  The colon (':') operator allows us to specify what range of array it self, allowing us to avoid to unnecessary copies of the whole array.  Therefore,  the syntax `history[:,1] .= xₒ` stores the contents of the vector `xₒ` into the first column of the 2-d array `history`.")
 
 # ╔═╡ dc92ba3f-3195-4941-8066-b5e1151ba3f5
-function aside(x)
-	@htl("""
-		<style>
-
-
-		@media (min-width: calc(700px + 30px + 300px)) {
-			aside.plutoui-aside-wrapper {
-				position: absolute;
-				right: -11px;
-				width: 0px;
-			}
-			aside.plutoui-aside-wrapper > div {
-				width: 300px;
-			}
-		}
-		</style>
-
-		<aside class="plutoui-aside-wrapper">
-		<div>
-		$(x)
-		</div>
-		</aside>
-
-		""")
+function aside(x; v_offset=0)
+    @htl("""
+     <style>
+     @media (min-width: calc(700px + 30px + 300px)) {
+     	aside.plutoui-aside-wrapper {
+     		position: absolute;
+     		right: -11px;
+     		width: 0px;
+     	}
+     	aside.plutoui-aside-wrapper > div {
+     		width: 300px;
+     	}
+     }
+     </style>
+     <aside class="plutoui-aside-wrapper" style="top: $(v_offset)px">
+     	<div>
+     	$(x)
+     	</div>
+     </aside>
+     """)
 end
 
 # ╔═╡ e432cc65-694e-48fb-b7dc-1a1c44ac5144
@@ -712,6 +708,12 @@ aside(md"""
 !!! terminology "Notation"
     The notation ``n \in \mathbb{Z}^+`` is just a fancy way of saying ``n`` is a positive integer.
 """)
+
+# ╔═╡ 75d9e014-95b2-4404-bd53-cc6d999c8f97
+aside(md"""
+!!! tip "Line numbers"
+    Each code cell in a Pluto notebook contains grey dots at the beginning of each line.  You can see the line number by hovering your mouse over a dot.   
+""", v_offset=-150)
 
 # ╔═╡ d28da7f2-82e0-499a-9892-57356fce50a9
 aside(md"""
@@ -744,7 +746,7 @@ PlutoUI = "~0.7.34"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.7.2"
+julia_version = "1.7.0"
 manifest_format = "2.0"
 
 [[deps.AbstractPlutoDingetjes]]
@@ -1769,7 +1771,7 @@ version = "0.9.1+5"
 # ╟─b8b331b3-0e31-4909-94b1-3c5e4ebe2720
 # ╠═cd51ec28-c061-4b1b-bf9d-9e57f9afbddb
 # ╟─3c84eb23-0c0c-4ed2-92c6-7d4c9abf508a
-# ╠═6777d6fe-2235-4832-9455-a12a6ef1f947
+# ╟─6777d6fe-2235-4832-9455-a12a6ef1f947
 # ╟─90ec3591-d797-43af-a990-e8001a6d8e09
 # ╠═9bdd5e48-c0da-4fcc-936e-f1dac567d035
 # ╟─cc261c81-1180-43d5-a27c-20c7ea749cd3
@@ -1793,6 +1795,7 @@ version = "0.9.1+5"
 # ╟─0d85e4dc-4251-473b-9029-d6ade20c4fcc
 # ╟─0c157ab2-05b8-4ad6-ac0c-a0373baf5bd6
 # ╟─7b791afc-045f-4b2b-8ad3-abf5c3a5afb9
+# ╟─75d9e014-95b2-4404-bd53-cc6d999c8f97
 # ╟─d28da7f2-82e0-499a-9892-57356fce50a9
 # ╠═ed2581f6-21c3-465f-8578-4c6782fc929e
 # ╟─8ae295aa-1bc6-42ea-a9b5-ca81deabf624
