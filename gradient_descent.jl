@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.4
+# v0.19.6
 
 using Markdown
 using InteractiveUtils
@@ -49,8 +49,7 @@ As we learn more about modern statistical methods and Machine Learning (ML), we 
 
 # ╔═╡ d1dea7ba-306e-4b90-9e9f-9eaddc13c1f5
 md"""
-!!! question "Your turn!"
-    Can you think of a procedure in your research that could be reformed into an optimization problem?
+**Question:**  Can you think of a procedure in your research that could be reformed into an optimization problem?
 """
 
 # ╔═╡ f6906ac2-eb06-464c-8e99-38f86e264595
@@ -116,10 +115,6 @@ Mathematically,
 ```math
     x_1 = x_o
 ```
-"""
-
-# ╔═╡ b8b331b3-0e31-4909-94b1-3c5e4ebe2720
-md"""
 ```math
 	x_{n+1} = x_n  - \eta \nabla f(x_n), \quad n \in \mathbb{Z}^+
 ```
@@ -205,7 +200,7 @@ md"""
 ### Learning Rate (``\eta``) for convex optimization
 Below are two controls to adjust η, the learning rate, and the location of the starting point.  Try setting a smaller learning rate.  Predict how the trajectory will differ.  Then drag the Iteration slider above forward to see if your predictions are correct.  
 
-What do you expect will happen if you set a larger learning rate?  Try it!
+**Question:** What do you expect will happen if you set a significantly larger learning rate?  Try it!
 """
 
 # ╔═╡ 3d3792b2-3538-4ae6-8127-11ff6a9391c2
@@ -224,7 +219,7 @@ end;
 md"""
 Iteration: $(@bind n_plt Slider(1:length(history), default=1))
 
-As you drag the slider from left to right, you'll reveal the value ``x_i`` for additional iterations of the gradient descent algorithm.  Where do you expect the  next two guesses to be?  
+As you drag the slider from left to right, you'll reveal the value ``x_i`` for additional iterations of the gradient descent algorithm.  Roughly where do you expect the  next two guesses to be?  
 
 Drag the slider above to reveal the trajectory that gradient descent takes.  The initial guess will become blue, and the final estimate will be in red.  
 """
@@ -279,10 +274,11 @@ x_left, x_right = -9.5, 9.5;
 
 # ╔═╡ 103c05e7-0985-4522-b225-43352631aff6
 md"""
-The starting points are shown as large triangles and the stopping points are shown as large octagons.  The smaller points show the trajectory that the gradient descent algorithm took.  As you may have already intuited by now, GD is the process of tracing the gradient to a minima akin to always following the steepest path down a hill to the valley for dinner after a long day of hiking. 🍕
-
 ### Learning rate for non-convex objective function
-What do you predict will happen as you increase the learning rate, ``\eta``?
+
+In the figure above, the starting points are shown as large triangles and the stopping points are shown as large octagons.  The smaller points show the trajectory that the gradient descent algorithm took.  As you may have already intuited by now, gradient descent is the process of following the gradient to a minima akin to always following the steepest path down a hill to the valley for dinner after a long day of hiking. 🍕
+
+**Question:** What do you predict will happen as you increase the learning rate, ``\eta``?
 
 Move the slider around to see what changing ``\eta`` does and test your prediction.
 
@@ -342,7 +338,7 @@ md"""
 
 One of the great things about the gradient descent algorithm is that the idea of following the steepest path down a hill generalizes to higher dimensional cases.
 
-Now it's your turn.  We've provided a shell function, `my_multivariate_GD` below.  But it's missing two critical steps.  Your task is to implement the logic for multivariate gradient descent in the following cell by replacing the code for `step` and updating `x` on lines 8 and 9.
+If you're comfortable with the syntax, then you can implement gradient descent yourself.   We've provided a shell function, `my_multivariate_GD` below.  But it's missing two critical steps.  Your task is to implement the logic for multivariate gradient descent in the following cell by replacing the code for `step` and updating `x` on lines 8 and 9.  (If you find the syntax confusing, there's an option to skip this step below.)
 """
 
 # ╔═╡ ed2581f6-21c3-465f-8578-4c6782fc929e
@@ -452,10 +448,13 @@ md"""
     converge to a minima. Why does this happen even when ``\eta`` remains constant?
 """
 
+# ╔═╡ 667617a7-b836-472b-81f2-72469bc3444c
+md"# Next Steps"
+
 # ╔═╡ 1a24d1cf-f8f6-4264-9dc2-d0026dedc752
 md"""
 ## Optimization Libraries
-While the standard gradient descent algorithm can be easily implemented by hand, there are several variations.  Conjugate gradient descent can be more efficient for many simple problems.  For converging more rapidly, it can be useful to use "acceleration".  For high dimensional problems, it can be helpful to add "momentum".  For maximizing the chance of convergence, it's useful to make use of ["Nesterov acceleration"](https://jlmelville.github.io/mize/nesterov.html).  For example, when fitting models to large data sets, "stochastic" and "mini-batch" gradient descent can be quite useful.  With so many choices, you may want to try a few different algorithms and compare their performance.  It would be nice if you didn't have to implement each yourself.  Fortunately, most modern high-level programming langauges have packages or libraries that implement gradient descent and several variants.  
+While the standard gradient descent algorithm can be easily implemented by hand, there are several variations.  Conjugate gradient descent can be more efficient for many simple problems.  For converging more rapidly, it can be useful to use "acceleration".  For high dimensional problems, it can be helpful to add "momentum".  For maximizing the chance of convergence, it's useful to make use of *[Nesterov acceleration](https://jlmelville.github.io/mize/nesterov.html)*.  For example, when fitting models to large data sets, "stochastic" and "mini-batch" gradient descent can be quite useful.  With so many choices, you may want to try a few different algorithms and compare their performance.  It would be nice if you didn't have to implement each yourself.  Fortunately, most modern high-level programming langauges have packages or libraries that implement gradient descent and several variants.  
 
 For Julia users, [Optim.jl](https://julianlsolvers.github.io/Optim.jl/stable/) is a good starting point.  In addition to gradient descent, it provide conjugate gradient descent, [Nelder-Mead](https://julianlsolvers.github.io/Optim.jl/stable/#algo/nelder_mead/) for problems where computing the gradient is impractical and [BFGS](https://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm) (and its lower memory version L-BFGS) that are very often good choices when one can compute the gradient.  For high-dimensional problems, the [Flux.jl](https://fluxml.ai/Flux.jl/stable/training/optimisers/) package provides several optimization algorithms more commonly used with neural networks (which we'll discuss later in the week).  
 """
@@ -507,7 +506,7 @@ optimize(f_optim, start_optim_1, ConjugateGradient())
 
 # ╔═╡ 652f3b91-d61c-425e-b322-f326ea6893e5
 md"""
-How did the number of objective function evaluations and gradient evaluations compare for the standard gradient descent and conjugate gradient descent?  
+**Question:** How did the number of objective function evaluations and gradient evaluations compare for the standard gradient descent and conjugate gradient descent?  
 """
 
 # ╔═╡ a33d53fe-7430-41f5-9808-d86df9dffbeb
@@ -523,7 +522,7 @@ optimize(f_optim, start_optim_1, ConjugateGradient(), autodiff=:forward)
 
 # ╔═╡ 8b093c35-67ae-4052-9f03-80de0fe4c2c7
 md"""
-How did the accuracy of the solutions compare when using numerical differences and automatic differentiation?
+**Question:** How did the accuracy of the solutions compare when using numerical differences and automatic differentiation?
 """
 
 # ╔═╡ e5515428-514f-425b-96cb-14b9b6a5c8cd
@@ -543,7 +542,7 @@ optimize(f_optim, start_optim_1, LBFGS(), autodiff=:forward)
 
 # ╔═╡ 9db36156-fccd-4402-9bb1-50f1c2fe9bee
 md"""
-How does their performance compare to the gradient descent and conjugate gradient descent algorithms?
+**Question:** How does their accuracy and performance compar to the gradient descent and conjugate gradient descent algorithms?
 """
 
 # ╔═╡ b7d94cea-068d-49a4-bbc7-993c5599f493
@@ -621,7 +620,7 @@ end;
 # ╔═╡ d5258020-0e95-45a2-8add-0ee9dcc54e46
 
 md"""
-You can see GD gradient descent action by moving the slider below.
+You can see gradient descent in action by moving the slider below.
 
 Iteration = $(@bind n2 Slider(1:num_iter_2d))
 """
@@ -707,7 +706,7 @@ aside(md"""
 aside(md"""
 !!! terminology "Notation"
     The notation ``n \in \mathbb{Z}^+`` is just a fancy way of saying ``n`` is a positive integer.
-""")
+""", v_offset=-200)
 
 # ╔═╡ 75d9e014-95b2-4404-bd53-cc6d999c8f97
 aside(md"""
@@ -1768,7 +1767,6 @@ version = "0.9.1+5"
 # ╠═94dfadf9-aeb7-404c-980a-84b617cebda7
 # ╟─053b15d0-600d-411a-8224-6affc138214f
 # ╟─28e06e61-48e4-4dda-a70b-f89c52b8bc11
-# ╟─b8b331b3-0e31-4909-94b1-3c5e4ebe2720
 # ╠═cd51ec28-c061-4b1b-bf9d-9e57f9afbddb
 # ╟─3c84eb23-0c0c-4ed2-92c6-7d4c9abf508a
 # ╟─6777d6fe-2235-4832-9455-a12a6ef1f947
@@ -1822,6 +1820,7 @@ version = "0.9.1+5"
 # ╟─a98651fc-be42-46fd-9fc0-2982d1a52603
 # ╟─d3849cc2-f0fd-49b4-aa9c-12fedfb0600a
 # ╟─fad5bfc8-1b5e-4ec9-92c4-84f499dfa8ca
+# ╟─667617a7-b836-472b-81f2-72469bc3444c
 # ╟─1a24d1cf-f8f6-4264-9dc2-d0026dedc752
 # ╟─caf5e2ea-90e7-4bc1-b251-0108814a1bcc
 # ╟─787c28c5-ad8f-4156-b915-d81ee0f007d0
