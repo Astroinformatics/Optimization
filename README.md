@@ -5,7 +5,7 @@
 -----
 
 Lab Tutorials:
-- gradient_descent.jl (Pluto notebook): Introduction to optimization algorithms, with a focus on gradient descent
+- gradient_descent.jl ([Pluto notebook]( https://astroinformatics.github.io/Optimization/gradient_descent.jl.html)): Introduction to optimization algorithms, with a focus on gradient descent
 
 -----
 ## Running Labs
