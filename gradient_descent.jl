@@ -347,6 +347,7 @@ function my_multivariate_GD(∇f::Function, xₒ::Vector, η::Real;
 	history = zeros(length(xₒ), max_iter) # 2-d array to store history
 	history[:,1] .= xₒ                    # Log initial state
 	x = xₒ                                # Initialize x
+	step = zeros(length(xₒ))
 	for iter in 2:max_iter
 		# YOUR TASK:  Replace the following two lines
 		step = zeros(length(xₒ))   
